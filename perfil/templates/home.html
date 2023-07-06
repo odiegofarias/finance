@@ -4,16 +4,16 @@
 {% block head %} <link rel="stylesheet" href="{% static 'perfil/css/home.css' %}">{% endblock head %}
 
 {% block body %}
-    <div class="container">
+    <div class="container" >
         <br>
         <br>
         <div class="row">
             <div class="col-md-3">
-                <a style="text-decoration: none; color:white;" href="#">
+                <a style="text-decoration: none; color: white;" href="#">
                     <div class="card">
                         <div class="row">
                             <div class="col-md-8">
-                                <span  class="fonte-destaque">RS 1.000,00</span>
+                                <span class="fonte-destaque" style="color: white !important;">RS 1.000,00</span>
                             </div>
                             <div class="col-md">
                                 <img class="icone-setas" src="{% static 'perfil/img/entradas.png' %}">
@@ -28,7 +28,7 @@
                     <div class="card">
                         <div class="row">
                             <div class="col-md-8">
-                                <span  class="fonte-destaque">RS 1.000,00</span>
+                                <span  class="fonte-destaque" style="color: white !important;">RS 1.000,00</span>
                             </div>
                             <div class="col-md">
                                 <img class="icone-setas" src="{% static 'perfil/img/saidas.png' %}">
@@ -46,18 +46,18 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="saldo">
-                        <span class="fonte-destaque">Saldo total</span>
+                        <span class="fonte-destaque" style="color: white !important;">Saldo total</span>
                         <br>
-                        <span class="font-light">R$ {{ total_contas }}</span>
+                        <span class="font-light"  style="color: white !important;">R$ {{ total_contas }}</span>
                     </div>
                     <hr class="hr-borda">
-                    <span class="fonte-destaque">Suas contas</span>
+                    <span class="fonte-destaque"  style="color: white !important;">Suas contas</span>
 
                     <div class="div-contas">
                         {% for conta in contas %}
                             <div class="lista-conta">
-                                <span>{{ conta.apelido }}</span>
-                                <span class="total-conta">R$ {{ conta.valor }}</span>
+                                <span style="color: white !important;">{{ conta.apelido }}</span>
+                                <span class="total-conta" style="color: white !important;">R$ {{ conta.valor }}</span>
                             </div>
                             <br>
                         {% endfor %}
