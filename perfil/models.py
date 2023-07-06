@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Sum
 
 
 class Categoria(models.Model):
@@ -32,3 +33,4 @@ class Conta(models.Model):
 
     def __str__(self) -> str:
         return self.apelido
+    

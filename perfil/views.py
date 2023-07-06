@@ -5,20 +5,25 @@ from django.contrib.messages import constants
 from django.db.models import Sum
 from django.http import HttpResponse
 from .models import Conta, Categoria
+from .utils import calcula_total
 
 
 
 def home(request):
-    return render(request, 'home.html')
+    contas = Conta.objects.all()
+    total_contas = calcula_total(contas, 'valor')
+
+    context = {
+        'contas': contas,
+        'total_contas': total_contas,
+    }
+    return render(request, 'home.html', context)
 
 def gerenciar(request):
     contas = Conta.objects.all()
     categorias = Categoria.objects.all()
-    total_contas = contas.aggregate(Sum('valor'))['valor__sum']
-    # total_contas = 0
-
-    # for conta in contas:
-    #     total_contas += conta.valor
+    # total_contas = contas.aggregate(Sum('valor'))['valor__sum']
+    total_contas = calcula_total(contas, 'valor')
 
     context = {
         'contas': contas,
@@ -83,3 +88,10 @@ def cadastrar_categoria(request):
     messages.add_message(request, constants.SUCCESS, 'Categoria cadastrada com sucesso.')
 
     return redirect(reverse('gerenciar'))
+
+def atualiza_categoria(request, id):
+    categoria = Categoria.objects.get(id=id)
+    categoria.essencial = not categoria.essencial
+    categoria.save()
+
+    return redirect('gerenciar')
