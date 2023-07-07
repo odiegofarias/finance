@@ -59,7 +59,7 @@ def extrato(request):
     categoria_get = request.GET.get('categoria')
 
     valores = Valores.objects.filter(data__month=datetime.now().month)
-
+    # TODO: Criar o Filtro de 7 dias
     if conta_get:
         valores = valores.filter(conta_id=conta_get)
     if categoria_get:
@@ -73,6 +73,12 @@ def extrato(request):
 
 
     return render(request, 'extrato.html', context)
+
+def limpa_filtros(request):
+    return redirect('extrato')
+
+def exportar_pdf(request):
+    ...
 
 
 
