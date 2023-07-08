@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import Sum
+from datetime import datetime
 
 
 class Categoria(models.Model):
@@ -9,6 +9,30 @@ class Categoria(models.Model):
 
     def __str__(self) -> str:
         return self.categoria
+    
+    def total_gasto(self):
+        # Importação Circular, RESOLVER MAIS TARDE
+        from extrato.models import Valores
+
+        # Filtrando por valores correspondentes à categoria atual, do mês atual e que seja uma saída
+        valores = Valores.objects.filter(
+            categoria__id=self.id).filter(
+                data__month=datetime.now().month).filter(
+                    tipo='S'
+            )
+        
+        # TODO: transformar o código parecido com o utils e aggregate
+        total = 0
+        for valor in valores:
+            total += valor.valor
+
+        return total
+    
+    def calcula_percentual_gasto_por_categoria(self):
+        return int((self.total_gasto() * 100) / self.valor_planejamento)
+    
+
+    # TODO: REalizar BARRA COM TOTAL de GASTOS NO MÊS
     
 
 BANCO_CHOICES = (

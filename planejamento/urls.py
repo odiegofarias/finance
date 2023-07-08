@@ -5,4 +5,5 @@ from . import views
 urlpatterns = [
     path('definir_planejamento/', views.definir_planejamento, name='definir_planejamento'),
     path('atualiza_valor_vcategoria/<int:id>', views.atualiza_valor_vcategoria, name='atualiza_valor_vcategoria'), # type: ignore
+    path('ver_planejamento/', views.ver_planejamento, name='ver_planejamento'),
 ]

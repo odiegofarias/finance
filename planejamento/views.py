@@ -13,15 +13,21 @@ def definir_planejamento(request):
 
 @csrf_exempt
 def atualiza_valor_vcategoria(request, id):
-    novo_valor = json.load(request)
-    valor_decimal = Decimal(novo_valor['novo_valor'])
-    
+    novo_valor = json.load(request)['novo_valor']
+    # TODO: Melhorar esse código
+    if ',' in novo_valor:
+        novo_valor = novo_valor.replace(',', '.')
+        
+    valor_decimal = Decimal(novo_valor)
 
-    print(type(valor_decimal))
-    
     categoria = Categoria.objects.get(id=id)
     categoria.valor_planejamento = valor_decimal
 
     categoria.save()
 
     return JsonResponse({'status': 'sucesso'})
+
+def ver_planejamento(request):
+    categorias = Categoria.objects.all()
+
+    return render(request, 'ver_planejamento.html', {'categorias': categorias})

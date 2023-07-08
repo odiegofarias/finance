@@ -48,11 +48,11 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({novo_valor: valor})
-            }).then(function(result){
+            }).then(function(result){ // Captura resposta
                 return result.json()
-            }).then(function(data){
-                console.log(data)
-            })
+            })//.then(function(data){
+            //   console.log(data)
+            //})
         }
     </script>
 
