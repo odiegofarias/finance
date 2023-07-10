@@ -4,16 +4,16 @@
 {% block head %} <link rel="stylesheet" href="{% static 'perfil/css/home.css' %}">{% endblock head %}
 
 {% block body %}
-    <div class="container" >
+    <div class="container">
         <br>
         <br>
         <div class="row">
             <div class="col-md-3">
-                <a style="text-decoration: none; color: white;" href="#">
+                <a style="text-decoration: none; color: white;" href="{% url 'novo_valor' %}">
                     <div class="card">
                         <div class="row">
                             <div class="col-md-8">
-                                <span class="fonte-destaque" style="color: white !important;">RS 1.000,00</span>
+                                <span class="fonte-destaque" style="color: white !important;">RS {{ total_entradas }}</span>
                             </div>
                             <div class="col-md">
                                 <img class="icone-setas" src="{% static 'perfil/img/entradas.png' %}">
@@ -24,11 +24,11 @@
                 </a>
             </div>
             <div class="col-md-3">
-                <a style="text-decoration: none; color:white;" href="#">
+                <a style="text-decoration: none;" href="{% url 'novo_valor' %}">
                     <div class="card">
                         <div class="row">
                             <div class="col-md-8">
-                                <span  class="fonte-destaque" style="color: white !important;">RS 1.000,00</span>
+                                <span  class="fonte-destaque" style="color: white !important;">RS {{ total_saidas }}</span>
                             </div>
                             <div class="col-md">
                                 <img class="icone-setas" src="{% static 'perfil/img/saidas.png' %}">
@@ -74,27 +74,27 @@
                 <div class="card">
                     <div class="row">
                         <div class="col-md">
-                            <div class="saldo">
+                            <div class="saldo" style="color: white !important;">
                                 <span class="fonte-destaque">Saldo mensal</span>
                                 <br>
-                                <span class="font-light">R$ 0.000,00</span>
+                                <span class="font-light" style="color: white !important;">R$ 0.000,00</span>
                             </div>
                         </div>
                         <div class="col-md">
                             <div class="despesa">
-                                <span class="fonte-destaque">Despesa mensal</span>
+                                <span class="fonte-destaque" style="color: white !important;">Despesa mensal</span>
                                 <br>
-                                <span class="font-light">R$ 0.000,00</span>
+                                <span class="font-light" style="color: white !important;">R$ 0.000,00</span>
                             </div>
 
                         </div>
 
                     </div>
                     <hr class="hr-borda">
-                    <span class="fonte-destaque">Total livre</span>
-                    <span class="font-light negativo">R$ 0.000,00</span>
+                    <span class="fonte-destaque" style="color: white !important;">Total livre</span>
+                    <span class="font-light negativo" style="color: white !important;">R$ 0.000,00</span>
                     <hr class="hr-borda">
-                    <a href="#" class="botao-principal">Gerenciar dados mensais</a>
+                    <a href="#" class="botao-principal" style="color: white !important;">Gerenciar dados mensais</a>
                 </div>
             </div>
 
@@ -104,25 +104,25 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="saldo">
-                        <span class="fonte-destaque">Planejamento</span>
+                        <span class="fonte-destaque" style="color: white !important;">Planejamento</span>
                     </div>
                     <hr class="hr-borda">
-                    <a href="#" class="botao-principal">Definir planejamento</a>
+                    <a href="{% url 'definir_planejamento' %}" class="botao-principal" style="color: white !important;">Definir planejamento</a>
                 </div>
             </div>
             <div class="col-md-8">
                 <div class="card">
-                    <span class="fonte-destaque">Equilibrio financeiro</span>
+                    <span class="fonte-destaque" style="color: white !important;">Equilibrio financeiro</span>
                     <hr class="hr-borda">
 
-                    <p>Gastos essenciais</p>
+                    <p style="color: white !important;">Gastos essenciais - {{ percentual_gastos_essenciais }}%</p>
                     <div class="progress">
-                        <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 20%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: {{ percentual_gastos_essenciais }}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                     <br>
-                    <p>Gastos não essenciais</p>
+                    <p style="color: white !important;">Gastos não essenciais - {{ percentual_gastos_nao_essenciais }}%</p>
                     <div class="progress">
-                        <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 40%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: {{ percentual_gastos_nao_essenciais }}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
 
                     <hr class="hr-borda">
@@ -138,18 +138,18 @@
             
             <div class="col-md-8">
                 <div class="card">
-                    <span class="fonte-destaque">Gerenciar contas</span>
+                    <span class="fonte-destaque" style="color: white !important;">Gerenciar contas</span>
                     <hr class="hr-borda">
 
-                    <span class="fonte-destaque">Próximas do vencimento</span>
-                    <span class="fonte-light">3 contas próximas do vencimento</span>
+                    <span class="fonte-destaque" style="color: white !important;">Próximas do vencimento</span>
+                    <span class="fonte-light" style="color: white !important;">3 contas próximas do vencimento</span>
                     <br>
-                    <span class="fonte-destaque negativo">Vencidas</span>
-                    <span class="fonte-light">0 contas vencidas</span>
+                    <span class="fonte-destaque negativo" style="color: white !important;">Vencidas</span>
+                    <span class="fonte-light" style="color: white !important;">0 contas vencidas</span>
 
                     <hr class="hr-borda">
                     
-                    <a href="#" class="botao-principal">Ver mais</a>
+                    <a href="{% url 'ver_contas' %}" class="botao-principal">Ver mais</a>
 
                 </div>
             </div>

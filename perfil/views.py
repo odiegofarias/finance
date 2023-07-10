@@ -5,17 +5,40 @@ from django.contrib.messages import constants
 from django.db.models import Sum
 from django.http import HttpResponse
 from .models import Conta, Categoria
-from .utils import calcula_total
+from .utils import calcula_total, calcula_equilibrio_financeiro
+from extrato.models import Valores
+from datetime import datetime
 
 
 
 def home(request):
     contas = Conta.objects.all()
     total_contas = calcula_total(contas, 'valor')
+    valores = Valores.objects.filter(data__month=datetime.now().month)
+    entradas = valores.filter(tipo='E')
+    saidas = valores.filter(tipo='S')
+
+    
+    
+    # Duas formas de fazer a mesma coisa
+    total_entradas = calcula_total(entradas, 'valor')
+    
+    total_saidas = 0
+    for saida in saidas:
+        total_saidas += saida.valor
+
+    # TODO: ORGANIZAR OS SALDOS DA HOME
+
+    percentual_gastos_essenciais, percentual_gastos_nao_essenciais = calcula_equilibrio_financeiro()
 
     context = {
         'contas': contas,
         'total_contas': total_contas,
+        'total_entradas': total_entradas,
+        'total_saidas': total_saidas,
+        'percentual_gastos_essenciais': round(percentual_gastos_essenciais),
+        'percentual_gastos_nao_essenciais': round(percentual_gastos_nao_essenciais)
+        
     }
     return render(request, 'home.html', context)
 
@@ -95,3 +118,28 @@ def atualiza_categoria(request, id):
     categoria.save()
 
     return redirect('gerenciar')
+
+def dashboard(request):
+    dados = {}
+    categorias = Categoria.objects.all()
+
+    for categoria in categorias:
+        total = 0
+        valores = Valores.objects.filter(categoria=categoria)
+        for v in valores:
+            total += float(v.valor)
+        # print(f'{categoria} -> {total}')
+        dados[categoria.categoria] = total
+    """
+    for categoria in categorias:
+        dados[categoria.categoria] = Valores.objects.filter(categoria=categoria).aggregate(Sum('valor'))['valor__sum']
+
+    return render(request, 'dashboard.html', {'labels': list(dados.keys()), 'values': list(dados.values())})
+    """
+
+
+
+    return render(request, 'dashboard.html', 
+                  {'labels': list(dados.keys()),
+                   'values': list(dados.values())
+    })
