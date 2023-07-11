@@ -87,10 +87,10 @@ def deletar_banco(request, id):
     try:
         conta = Conta.objects.get(id=id)
         conta.delete()
+
+        return redirect(reverse('gerenciar'))
     except Conta.DoesNotExist:
         return HttpResponse('Não encontrado')
-
-    return redirect(reverse('gerenciar'))
 
 def cadastrar_categoria(request):
     nome = request.POST.get('categoria')
